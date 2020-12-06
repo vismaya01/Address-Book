@@ -160,10 +160,28 @@ function countByCityOrState(countCityOrState, choice){
         console.log("Contacts in "+countCityOrState+" state are: ",contactArray.filter(contact => contact.state == countCityOrState).reduce(contact => contact + 1, 0));
     }
 }
+
+function sortContactByCity_State_Zip(inputToSort){
+    if(inputToSort == 1){
+        contactArray.sort(function(a, b) { return a.city.localeCompare(b.city)});
+        for(let i = 0; i < contactArray.length; i++)
+            console.log(contactArray[i].toString(),"\n");
+    }
+    if(inputToSort == 2){
+        contactArray.sort(function(a, b) { return a.state.localeCompare(b.state)});
+        for(let i = 0; i < contactArray.length; i++)
+            console.log(contactArray[i].toString(),"\n");
+    }
+    if(inputToSort == 3){
+        contactArray.sort(function(a, b) { return parseInt(a.zip) - parseInt(b.zip)});
+        for(let i = 0; i < contactArray.length; i++)
+            console.log(contactArray[i].toString(),"\n");
+    }
+}
   
 let choice = 0;
 do{
-    console.log("Press: \n1) Add Contact  \n2) Edit Contact \n3) View Contact  \n4) Delete Contact \n5) Count Contacts \n6) Search City or State \n7) View Contact By city or state \n8) Count by city or state \n9) Sort by name \n0)Exit:");
+    console.log("Press: \n1) Add Contact  \n2) Edit Contact \n3) View Contact  \n4) Delete Contact \n5) Count Contacts \n6) Search City or State \n7) View Contact By city or state \n8) Count by city or state \n9) Sort by name \n10) Sort By City, State or Zip \n0)Exit:");
     choice = Number(prompt("Enter your choice: "));
     switch(choice){
         case 1:
@@ -200,8 +218,8 @@ do{
             break;
         case 7:
             console.log("1) View By City  2) View By State");
-            let ch = Number(prompt("Enter your choice: "));
-            switch (ch){
+            ch = Number(prompt("Enter your choice: "));
+            switch(ch){
                 case 1: let city = prompt("Enter the city name: ");
                         searchByCityOrState(city, 1);
                         break;
@@ -224,6 +242,14 @@ do{
             break;
         case 9:
             console.log(contactArray.sort((a,b)=>a.firstName.localeCompare(b.firstName)));
+            break;
+        case 10:
+            console.log("Sort Contacts based on \t1.) City \t2.) State \t3.) Zip")
+            let inputToSort = parseInt(prompt("Enter your choice:  "))
+            sortContactByCity_State_Zip(inputToSort);
+            break;
+        default:
+            console.log("Enter a correct option");
             break;
     }
 }while(choice != 0);
