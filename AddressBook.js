@@ -142,23 +142,28 @@ let deletContact=()=>{
   
 let choice = 0;
 do{
-    console.log("Press: \n1) Add Contact  \n2) Edit Contact \n3) View Contact  \n4) Delete Contact \n0)Exit:");
+    console.log("Press: \n1) Add Contact  \n2) Edit Contact \n3) View Contact  \n4) Delete Contact \n5) Count Contacts \n0)Exit:");
     choice = Number(prompt("Enter your choice: "));
-    if(choice == 1){
-        addContact();
-    }
-    if(choice == 2){
-        if(contactArray.length==0){
-            console.log("No contacts in Addressbook.");
-        }
-        let userData = prompt("Enter the contact firstname which you want to edit: ");
-        editContact(userData); 
-    }
-    if(choice == 3){
-        for(let i = 0; i < contactArray.length; i++)
-            console.log(contactArray[i].toString(),"\n");
-    }
-    if(choice == 4){
-        deletContact();
+    switch(choice){
+        case 1:
+            addContact();
+            break;
+        case 2:
+            if(contactArray.length==0){
+                console.log("No contacts in Addressbook.");
+            }
+            let userData = prompt("Enter the contact firstname which you want to edit: ");
+            editContact(userData);
+            break; 
+        case 3:
+            for(let i = 0; i < contactArray.length; i++)
+                console.log(contactArray[i].toString(),"\n");
+            break;
+        case 4:
+            deletContact();
+            break;
+        case 5:
+            console.log("Number of Contacts: "+contactArray.reduce(contact=>contact + 1, 0));
+            break;
     }
 }while(choice != 0);
