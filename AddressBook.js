@@ -125,10 +125,24 @@ function editContact(firstName){
             }
     }
 }
+
+let deletContact=()=>{
+    if(contactArray.length==0){
+        console.log("No contacts in the list");
+    }   
+    let name = prompt("Enter contact firstname you want to delete: ");
+    let found = contactArray.find((contact)=>contact.firstName == name);
+    if(found==undefined){
+        console.log("No such contact in Addressbook.");
+    }else{
+        contactArray = contactArray.filter((contacts)=>contacts.firstName!=name);
+        console.log("Contact is deleleted from Addressbook.")
+    }
+}
   
 let choice = 0;
 do{
-    console.log("Press: \n1) Add Contact  \n2) Edit Contact \n3) View Contact \n0)Exit:");
+    console.log("Press: \n1) Add Contact  \n2) Edit Contact \n3) View Contact  \n4) Delete Contact \n0)Exit:");
     choice = Number(prompt("Enter your choice: "));
     if(choice == 1){
         addContact();
