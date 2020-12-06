@@ -4,6 +4,8 @@ const ADDRESS_REGEX_PATTERN = RegExp('^[a-zA-z]{3,}$');
 const PINCODE_REGEX_PATTERN = RegExp('^[0-9]{6}$');
 const PHONE_NUMBER_PATTERN = RegExp('^[9][1][6-9]{1}[0-9]{9}$'); 
 const EMAIL_REGEX_PATTERN=RegExp('^[a-zA-Z0-9]+([._+-][0-9a-zA-Z]+)*@[a-zA-Z0-9]+.[a-zA-Z]{2,4}([.][a-zA-Z]{2,4})?$');
+let contactArray = new Array();
+
 class Contact {
 
     firstName;
@@ -15,133 +17,81 @@ class Contact {
     phoneNumber;
     email;
 
-    get firstName() {
-        return this.firstName;
-    }
-    set firstName(value) {
-        this.firstName = value;
-    }
-
-    get lastName() {
-        return this.lastName;
-    }
-    set lastName(value) {
-        this.lastName = value;
-    }
-
-    get address() {
-        return this.address;
-    }
-    set address(value) {
-        this.address = value;
-    }
-
-    get city() {
-        return this.city;
-    }
-    set city(value) {
-        this.city = value;
-    }
-
-    get state() {
-        return this.state;
-    }
-    set state(value) {
-        this.state = value;
-    }
-
-    get zip() {
-        return this.zip;
-    }
-    set zip(value) {
-        this.zip = value;
-    }
-
-    get phoneNumber() {
-        return this.phoneNumber;
-    }
-    set phoneNumber(value) {
-        this.phoneNumber = value;
-    }
-
-    get email() {
-        return this.email;
-    }
-    set email(value) {
-        this.email = value;
-    }
-
-    constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
+    constructor(firstName,lastName,address,city,state,zip,phoneNumber,email){
+            if(!NAME_REGEX_PATTERN.test(firstName)) throw 'Please enter valid firstname.'
+            { 
+                this.firstName = firstName;
+            }
+            if(!NAME_REGEX_PATTERN.test(lastName)) throw 'Please enter valid lastname.'
+            {
+                this.lastName = lastName;
+            }
+            if(!ADDRESS_REGEX_PATTERN.test(address))throw 'Please enter valid address.'
+            {
+                this.address = address;
+            }
+            if(!ADDRESS_REGEX_PATTERN.test(city)) throw 'Please enter valid city.'
+            {
+                this.city = city;
+            }
+            if(!ADDRESS_REGEX_PATTERN.test(state)) throw 'Please enter valid state.'
+            {
+                this.state = state;
+            }
+            if(!PINCODE_REGEX_PATTERN.test(zip)) throw 'Please enter valid pincode.'
+            {
+                this.zip = zip;
+            }
+            if(!PHONE_NUMBER_PATTERN.test(phoneNumber)) throw 'Please enter valid phone number.'
+            {
+                this.phoneNumber = phoneNumber;
+            }
+            if(!EMAIL_REGEX_PATTERN.test(email)) throw 'Please enter valid email ID.'
+            {
+                this.email = email;
+            }
+        }
 
     toString() {
-        return "First name: " + this.firstName + "\nLast name: " + this.lastName + "\nAddress: " + this.address + "\nCity: " + this.city + "\nState: " + this.state + "\nZip: " + this.zip + "\nPhone number: " + this.phoneNumber + "\nEmail: " + this.email;
+        return "First name: " + this.firstName + "\nLast name: " + this.lastName + "\nAddress: " + this.address + "\nCity: " +
+         this.city + "\nState: " + this.state + "\nZip: " + this.zip + "\nPhone number: " + this.phoneNumber + "\nEmail: " + this.email;
     }
 }
 
-function validateDetails(firstName, lastName, address, city, state, zip, phoneNumber, email) {
-    if (!NAME_REGEX_PATTERN.test(firstName)) {
-        console.log('Please enter first name in valid format.');
-        return false;
+function addContact(){
+    let firstName = prompt("Enter Firstname: ");
+    let lastName = prompt("Enter Lastname: ");
+    if(contactArray.find((contact)=>(contact.firstName+" "+contact.lastName)==(FirstName+" "+LastName))){   
+        console.log("Name is already present in addressbook.");
+        return;
     }
-    if (!NAME_REGEX_PATTERN.test(lastName)) {
-        console.log('Please enter last name in valid format.');
-        return false;
-    }
-    if (!ADDRESS_REGEX_PATTERN.test(address)) {
-        console.log('Please enter address in valid format.');
-        return false;
-    }
-    if (!ADDRESS_REGEX_PATTERN.test(city)) {
-        console.log('Please enter city in valid format.');
-        return false;
-    }
-    if (!ADDRESS_REGEX_PATTERN.test(state)) {
-        console.log('Please enter state in valid format.');
-        return false;
-    }
-
-    if (!PINCODE_REGEX_PATTERN.test(zip)) {
-        console.log('Please enter zip in valid format.');
-        return false;
-    }
-    
-    if (!PHONE_NUMBER_PATTERN.test(phoneNumber)) {
-        console.log('Please enter phoneNumber in valid format.');
-        return false;
-    }
-   
-    if (!EMAIL_REGEX_PATTERN.test(email)) {
-        console.log('Please enter email in valid format.');
-        return false;
-    }
-    else {
-        console.log('Given details are valid.');
-        return true;
+    let address = prompt("Enter Address: ");
+    let city = prompt("Enter City name: ");
+    let state = prompt("Enter State name: ");
+    let zip = prompt("Enter pincode: ");
+    let phoneNumber = prompt("Enter Phone number: ");
+    let emailId = prompt("Enter email id: ");
+    try{
+        let contact = new Contact(firstName,lastName,address,city,state,zip,phoneNumber,emailId);
+        contactArray.push(contact);
+        console.log("Contact is added. ");
+    }catch(Exception){
+        console.log(Exception);
     }
 }
-
-var firstName = prompt("Please enter your first name : ");
-var lastName = prompt("Please enter your last name : ");
-var address = prompt("Please enter your address : ");
-var city = prompt("Please enter your city : ");
-var state = prompt("Please enter your state : ");
-var zip = parseInt(prompt("Please enter your zipCode : "));
-var phoneNumber = parseInt(prompt("Please enter your phoneNumber : "));
-var email = prompt("Please enter your email : ");
-
-let contactArray = new Array();
-contactArray.push({
-    nameObj: validateDetails(firstName, lastName, address, city, state, zip, phoneNumber, email),
-    toString() {
-        return "First name: " + this.firstName + " " + this.lastName + "\nAddress: " + this.address + "\nCity: " + this.city + "\nState: " + this.state + "\nZip: " + this.zip + "\nPhone number: " + this.phoneNumber + "\nEmail: " + this.email;
-    },
-});
+  
+let choice = 0;
+do{
+    console.log("Press: \n1) Add Contact  \n2) View Contact \n0)Exit:");
+    choice = Number(prompt("Enter your choice: "));
+    if(choice == 1){
+        addContact();
+    }
+    if(choice == 2){
+        for(let i = 0; i < contactArray.length; i++)
+            console.log(contactArray[i].toString(),"\n");
+    }
+    if(choice == 4){
+        deletContact();
+    }
+}while(choice != 0);
